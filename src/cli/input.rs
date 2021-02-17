@@ -1,6 +1,6 @@
 use std::io;
 
-use crate::output;
+use super::output;
 
 pub fn welcome(message: &str) -> String {
     output::output_string(message);

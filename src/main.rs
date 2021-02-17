@@ -1,16 +1,14 @@
-mod cli;
 mod calculator;
+mod cli;
 mod translator;
 
 use cli::{input, output};
-use translator::{lexer};
+use translator::processor;
 
 fn main() {
     let input = input::welcome("Введите выражение:");
 
-    let infix_tokens = lexer::parse_tokens(input);
-    let rpn_tokens = translator::translator::translate_infix_to_rpn(infix_tokens);
-
+    let rpn_tokens = processor::parse_rpn_tokens(input);
     let calculated = calculator::calculator::calculate(rpn_tokens);
 
     output::output_double(calculated);

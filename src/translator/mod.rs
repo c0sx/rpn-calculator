@@ -1,2 +1,4 @@
-pub mod lexer;
-pub mod translator;
+pub mod processor;
+
+mod lexer;
+mod translator;
