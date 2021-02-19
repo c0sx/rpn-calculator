@@ -1,4 +1,8 @@
-pub mod processor;
-
 mod lexer;
-mod translator;
+mod processor;
+
+pub fn translate_infix_to_rpn(s: String) -> Vec<char> {
+    let infix_tokens = lexer::parse_tokens(s);
+
+    processor::process_translate(infix_tokens)
+}
