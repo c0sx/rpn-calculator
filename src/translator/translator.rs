@@ -39,7 +39,6 @@ fn move_when_operator(c: char, output_queue: &mut Vec<char>, stack: &mut Vec<cha
         }
 
         let comparison = compare_operators(*token, c);
-
         if comparison >= 0 {
             output_queue.push(*token);
             stack.pop();
@@ -85,16 +84,19 @@ fn is_close_bracket(c: char) -> bool {
 }
 
 fn move_when_close_bracket(output_queue: &mut Vec<char>, stack: &mut Vec<char>) {
-    loop {
-        let token = stack.pop();
-        let token = match token {
-            Some(t) => t,
-            None => break,
-        };
+    let mut open_brackets_counter = 0;
 
+    while let Some(token) = stack.pop() {
         if is_open_bracket(token) == false {
             output_queue.push(token);
+        } else {
+            open_brackets_counter += 1;
+            break;
         }
+    }
+
+    if open_brackets_counter == 0 {
+        panic!("Пропущена открывающая скобка")
     }
 }
 
