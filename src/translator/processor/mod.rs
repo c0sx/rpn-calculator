@@ -1,4 +1,4 @@
-mod operator;
+mod token;
 
 pub fn process_translate(tokens: Vec<char>) -> Vec<char> {
     let mut output_queue: Vec<char> = Vec::new();
@@ -12,13 +12,13 @@ pub fn process_translate(tokens: Vec<char>) -> Vec<char> {
 
 fn process_tokens(tokens: Vec<char>, output_queue: &mut Vec<char>, stack: &mut Vec<char>) {
     for token in tokens {
-        if operator::is_digit(token) {
+        if token::is_digit(token) {
             output_queue.push(token);
-        } else if operator::is_operator(token) {
+        } else if token::is_operator(token) {
             move_when_operator(token, output_queue, stack);
-        } else if operator::is_open_bracket(token) {
+        } else if token::is_open_bracket(token) {
             stack.push(token);
-        } else if operator::is_close_bracket(token) {
+        } else if token::is_close_bracket(token) {
             move_when_close_bracket(output_queue, stack);
         }
     }
@@ -26,11 +26,11 @@ fn process_tokens(tokens: Vec<char>, output_queue: &mut Vec<char>, stack: &mut V
 
 fn move_when_operator(token: char, output_queue: &mut Vec<char>, stack: &mut Vec<char>) {
     while let Some(last) = stack.last() {
-        if operator::is_operator(*last) == false {
+        if token::is_operator(*last) == false {
             break;
         }
 
-        let comparison = operator::compare_operators(*last, token);
+        let comparison = token::compare_operators(*last, token);
         if comparison == -1 {
             break;
         }
@@ -46,7 +46,7 @@ fn move_when_close_bracket(output_queue: &mut Vec<char>, stack: &mut Vec<char>) 
     let mut open_brackets_counter = 0;
 
     while let Some(token) = stack.pop() {
-        if operator::is_open_bracket(token) == false {
+        if token::is_open_bracket(token) == false {
             output_queue.push(token);
         } else {
             open_brackets_counter += 1;
@@ -61,7 +61,7 @@ fn move_when_close_bracket(output_queue: &mut Vec<char>, stack: &mut Vec<char>) 
 
 fn process_remains_in_stack(output_queue: &mut Vec<char>, stack: &mut Vec<char>) {
     while let Some(token) = stack.pop() {
-        if operator::is_brackets(token) {
+        if token::is_brackets(token) {
             panic!("Присутствует незакрытая скобка")
         }
 

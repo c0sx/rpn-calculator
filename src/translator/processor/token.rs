@@ -1,7 +1,3 @@
-pub fn is_operator(token: char) -> bool {
-    vec!['+', '-', '*', '/'].contains(&token)
-}
-
 pub fn is_digit(token: char) -> bool {
     token.is_digit(10)
 }
@@ -16,6 +12,10 @@ pub fn is_open_bracket(token: char) -> bool {
 
 pub fn is_close_bracket(token: char) -> bool {
     token == ')'
+}
+
+pub fn is_operator(token: char) -> bool {
+    vec!['+', '-', '*', '/'].contains(&token)
 }
 
 pub fn compare_operators(token1: char, token2: char) -> i8 {
