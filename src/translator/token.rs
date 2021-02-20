@@ -14,6 +14,16 @@ pub fn get_operators() -> Vec<char> {
     vec!['+', '-', '*', '/', '(', ')', '~']
 }
 
+pub fn is_low_priority_operator_token(token: &String) -> bool {
+    ['+', '-', '~']
+        .iter()
+        .any(|op| token.contains(&op.to_string()))
+}
+
+pub fn is_high_priority_operator_token(token: &String) -> bool {
+    ['*', '/'].iter().any(|op| token.contains(&op.to_string()))
+}
+
 pub fn is_minus_operator(token: &String) -> bool {
     token == "-"
 }

@@ -41,6 +41,6 @@ fn get_argument(stack: &mut Vec<f64>) -> f64 {
 
     match arg {
         Some(a) => a,
-        None => panic!("Ошибка при выполнении")
+        None => panic!("Ошибка при выполнении"),
     }
 }

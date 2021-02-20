@@ -1,6 +1,6 @@
+mod calculator;
 mod cli;
 mod translator;
-mod calculator;
 
 use cli::{input, output};
 

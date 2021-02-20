@@ -22,7 +22,13 @@ fn remove_whitespaces(s: String) -> String {
     without_whitespaces.collect::<Vec<&str>>().join("")
 }
 
-fn get_next_token(s: &String, start: usize, tokens: &Vec<String>, numeric: &Vec<char>, separators: &Vec<char>) -> Option<String> {
+fn get_next_token(
+    s: &String,
+    start: usize,
+    tokens: &Vec<String>,
+    numeric: &Vec<char>,
+    separators: &Vec<char>,
+) -> Option<String> {
     if start >= s.len() {
         return None;
     }
@@ -35,7 +41,7 @@ fn get_next_token(s: &String, start: usize, tokens: &Vec<String>, numeric: &Vec<
             Some(token::get_unary_minus())
         } else {
             Some(token)
-        }
+        };
     } else {
         None
     }
@@ -68,9 +74,12 @@ fn is_unary(token: &String, tokens: &Vec<String>) -> bool {
     }
 
     let prev = tokens.last();
-    let operators = token::get_operators().iter().map(|op| op.to_string()).collect::<Vec<String>>();
+    let operators = token::get_operators()
+        .iter()
+        .map(|op| op.to_string())
+        .collect::<Vec<String>>();
     match prev {
         Some(prev) => operators.contains(&prev),
-        None => true
+        None => true,
     }
 }
