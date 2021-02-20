@@ -12,7 +12,7 @@ pub fn subtract(stack: &mut Vec<f64>) -> f64 {
     b - a
 }
 
-pub fn reverse(stack: &mut Vec<f64>) -> f64 {
+pub fn negative(stack: &mut Vec<f64>) -> f64 {
     let a = get_argument(stack);
 
     -a

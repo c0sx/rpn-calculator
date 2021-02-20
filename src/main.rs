@@ -10,5 +10,6 @@ fn main() {
     let rpn_tokens = translator::translate_infix_to_rpn(input);
     let result = calculator::calculate(&rpn_tokens);
 
-    output::output_results(rpn_tokens, result);
+    let normalized = translator::normalize_tokens(rpn_tokens);
+    output::output_results(normalized, result);
 }

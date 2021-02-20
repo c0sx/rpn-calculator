@@ -8,3 +8,15 @@ pub fn translate_infix_to_rpn(s: String) -> Vec<String> {
 
     processor::process_translate(infix_tokens)
 }
+
+pub fn normalize_tokens(s: Vec<String>) -> Vec<String> {
+    s.iter()
+        .map(|t| {
+            if *t == token::get_unary_minus() {
+                token::get_minus()
+            } else {
+                String::from(t)
+            }
+        })
+        .collect::<Vec<String>>()
+}

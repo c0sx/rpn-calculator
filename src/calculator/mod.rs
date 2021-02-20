@@ -28,7 +28,7 @@ fn evaluate(operation: &str, stack: &mut Vec<f64>) -> f64 {
         "*" => operation::multiply(stack),
         "/" => operation::divide(stack),
         "-" => operation::subtract(stack),
-        "~" => operation::reverse(stack),
+        "~" => operation::negative(stack),
         _ => panic!("Недопустимая операция"),
     }
 }

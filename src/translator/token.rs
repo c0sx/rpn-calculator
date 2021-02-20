@@ -10,6 +10,10 @@ pub fn get_unary_minus() -> String {
     String::from("~")
 }
 
+pub fn get_minus() -> String {
+    String::from("-")
+}
+
 pub fn get_operators() -> Vec<char> {
     vec!['+', '-', '*', '/', '(', ')', '~']
 }

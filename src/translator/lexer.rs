@@ -78,6 +78,7 @@ fn is_unary(token: &String, tokens: &Vec<String>) -> bool {
         .iter()
         .map(|op| op.to_string())
         .collect::<Vec<String>>();
+
     match prev {
         Some(prev) => operators.contains(&prev),
         None => true,
