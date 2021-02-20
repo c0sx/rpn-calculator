@@ -1,4 +1,6 @@
 mod lexer;
+mod operator;
+mod token;
 mod processor;
 
 pub fn translate_infix_to_rpn(s: String) -> Vec<String> {

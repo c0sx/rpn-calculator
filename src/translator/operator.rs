@@ -12,11 +12,11 @@ pub fn compare_operators(token1: &String, token2: &String) -> i8 {
 }
 
 fn get_weight_of_operator(token: &String) -> u8 {
-    if ['*', '/'].iter().any(|op| op.to_string() == *token) {
+    if ['*', '/'].iter().any(|op| token.contains(&op.to_string())) {
         return 2;
     }
 
-    if ['+', '-'].iter().any(|op| op.to_string() == *token) {
+    if ['+', '-', '~'].iter().any(|op| token.contains(&op.to_string())) {
         return 1;
     }
 

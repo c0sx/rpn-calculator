@@ -1,3 +1,23 @@
+pub fn get_numeric_tokens() -> Vec<char> {
+    vec!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+}
+
+pub fn get_not_numeric_tokens() -> Vec<char> {
+    vec!['+', '-', '*', '/', '(', ')']
+}
+
+pub fn get_unary_minus() -> String {
+    String::from("~")
+}
+
+pub fn get_operators() -> Vec<char> {
+    vec!['+', '-', '*', '/', '(', ')', '~']
+}
+
+pub fn is_minus_operator(token: &String) -> bool {
+    token == "-"
+}
+
 pub fn is_numeric(token: &String) -> bool {
     let test = token.parse::<f64>();
     match test {

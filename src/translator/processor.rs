@@ -1,5 +1,4 @@
-mod operator;
-mod token;
+use crate::translator::{operator, token};
 
 pub fn process_translate(tokens: Vec<String>) -> Vec<String> {
     let mut output_queue: Vec<String> = Vec::new();
