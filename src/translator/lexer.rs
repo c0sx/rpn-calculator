@@ -21,8 +21,9 @@ pub fn parse_tokens(s: String) -> Vec<String> {
         }
     }
 
-    if token.len() > 0 {
-        tokens.push(token.to_string());
+    match token.parse::<f64>() {
+        Ok(t) => tokens.push(t.to_string()),
+        Err(_) => panic!("Ошибка в выражении")
     }
 
     tokens
