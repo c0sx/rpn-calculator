@@ -1,33 +1,36 @@
 mod operation;
 mod parser;
 
-pub fn calculate(queue: &mut Vec<char>) -> f64 {
+pub fn calculate(queue: &Vec<String>) -> f64 {
     let mut stack: Vec<f64> = Vec::new();
 
     for token in queue {
-        let token = *token;
-
-        if operation::is_operation(token) == false {
-            stack.push(parser::to_f64(token));
+        if parser::is_argument(token) {
+            let numeric = parser::to_f64(token.to_string());
+            stack.push(numeric);
             continue;
         }
 
-        let (a, b) = get_arguments(&mut stack);
-        let result = match token {
-            '+' => operation::add(b, a),
-            '-' => operation::subtract(b,a),
-            '*' => operation::multiply(b, a),
-            '/' => operation::divide(b, a),
-            _ => panic!("Недопустимая операция")
-        };
-
+        let result = evaluate(token, &mut stack);
         stack.push(result);
     }
 
     let result = stack.pop();
     match result {
         Some(result) => result,
-        None => panic!("Возникла ошибка при вычислении")
+        None => panic!("Возникла ошибка при вычислении"),
+    }
+}
+
+fn evaluate(operation: &str, stack: &mut Vec<f64>) -> f64 {
+    let (a, b) = get_arguments(stack);
+
+     match operation {
+        "+" => operation::add(b, a),
+        "-" => operation::subtract(b, a),
+        "*" => operation::multiply(b, a),
+        "/" => operation::divide(b, a),
+        _ => panic!("Недопустимая операция"),
     }
 }
 
@@ -41,6 +44,6 @@ fn get_arguments(stack: &mut Vec<f64>) -> (f64, f64) {
 fn get_argument(c: Option<f64>) -> f64 {
     match c {
         Some(c) => c,
-        None => 0.0
+        None => 0.0,
     }
 }

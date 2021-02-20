@@ -1,7 +1,3 @@
-pub fn is_operation(token: char) -> bool {
-    ['+', '-', '*', '/'].contains(&token)
-}
-
 pub fn add(a: f64, b: f64) -> f64 {
     a + b
 }
