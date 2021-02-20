@@ -23,27 +23,12 @@ pub fn calculate(queue: &Vec<String>) -> f64 {
 }
 
 fn evaluate(operation: &str, stack: &mut Vec<f64>) -> f64 {
-    let (a, b) = get_arguments(stack);
-
-     match operation {
-        "+" => operation::add(b, a),
-        "-" => operation::subtract(b, a),
-        "*" => operation::multiply(b, a),
-        "/" => operation::divide(b, a),
+    match operation {
+        "+" => operation::add(stack),
+        "*" => operation::multiply(stack),
+        "/" => operation::divide(stack),
+        "-" => operation::subtract(stack),
+        "~" => operation::reverse(stack),
         _ => panic!("Недопустимая операция"),
-    }
-}
-
-fn get_arguments(stack: &mut Vec<f64>) -> (f64, f64) {
-    let a = get_argument(stack.pop());
-    let b = get_argument(stack.pop());
-
-    (a, b)
-}
-
-fn get_argument(c: Option<f64>) -> f64 {
-    match c {
-        Some(c) => c,
-        None => 0.0,
     }
 }

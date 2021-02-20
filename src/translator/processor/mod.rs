@@ -1,5 +1,5 @@
-mod token;
 mod operator;
+mod token;
 
 pub fn process_translate(tokens: Vec<String>) -> Vec<String> {
     let mut output_queue: Vec<String> = Vec::new();
@@ -14,15 +14,19 @@ pub fn process_translate(tokens: Vec<String>) -> Vec<String> {
 fn process_tokens(tokens: Vec<String>, output_queue: &mut Vec<String>, stack: &mut Vec<String>) {
     for token in tokens {
         if token::is_numeric(&token) {
-            output_queue.push(token);
+            move_when_numeric(output_queue, token);
         } else if token::is_operator(&token) {
             move_when_operator(token, output_queue, stack);
         } else if token::is_open_bracket(&token) {
-            stack.push(token)
+            move_when_open_bracket(stack, token);
         } else if token::is_close_bracket(&token) {
             move_when_close_bracket(output_queue, stack);
         }
     }
+}
+
+fn move_when_numeric(output_queue: &mut Vec<String>, token: String) {
+    output_queue.push(token);
 }
 
 fn move_when_operator(token: String, output_queue: &mut Vec<String>, stack: &mut Vec<String>) {
@@ -41,6 +45,10 @@ fn move_when_operator(token: String, output_queue: &mut Vec<String>, stack: &mut
     }
 
     stack.push(token);
+}
+
+fn move_when_open_bracket(stack: &mut Vec<String>, token: String) {
+    stack.push(token)
 }
 
 fn move_when_close_bracket(output_queue: &mut Vec<String>, stack: &mut Vec<String>) {

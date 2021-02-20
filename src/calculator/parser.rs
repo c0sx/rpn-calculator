@@ -8,9 +8,10 @@ pub fn to_f64(s: String) -> f64 {
 }
 
 pub fn is_argument(token: &String) -> bool {
-    is_operation(token) == false
-}
+    let result = token.parse::<f64>();
 
-fn is_operation(token: &String) -> bool {
-    ['+', '-', '*', '/'].iter().any(|op| token.contains(&op.to_string()))
+    match result {
+        Ok(_) => true,
+        Err(_) => false,
+    }
 }

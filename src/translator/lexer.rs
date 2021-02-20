@@ -1,30 +1,64 @@
 pub fn parse_tokens(s: String) -> Vec<String> {
-    let valid_digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
-    let valid_tokens = ['+', '-', '*', '/', '(', ')'];
-
     let mut tokens: Vec<String> = Vec::new();
-    let mut token = String::new();
 
-    for c in s.chars() {
-        if valid_digits.contains(&c) {
-            token.push_str(&c.to_string());
-            continue;
-        }
+    let s = remove_whitespaces(s);
 
-        if valid_tokens.contains(&c) {
-            if token.len() > 0 {
-                tokens.push(token.to_owned());
+    let mut cursor = 0;
+    while let Some(token) = get_next_token(&s, cursor) {
+        cursor += token.len();
+
+        if token == "-" {
+            if let Some(prev) = tokens.last() {
+                if ["+", "-", "*", "/", "(", ")"].contains(&prev.as_str()) {
+                    tokens.push(String::from("~"));
+                    continue;
+                }
+            } else {
+                tokens.push(String::from("~"));
+                continue;
             }
-
-            token = String::new();
-            tokens.push(c.to_string());
         }
-    }
 
-    match token.parse::<f64>() {
-        Ok(t) => tokens.push(t.to_string()),
-        Err(_) => panic!("Ошибка в выражении")
+        tokens.push(token);
     }
 
     tokens
+}
+
+fn remove_whitespaces(s: String) -> String {
+    let without_whitespaces = s.split(" ");
+
+    without_whitespaces.collect::<Vec<&str>>().join("")
+}
+
+fn get_next_token(s: &String, start: usize) -> Option<String> {
+    let numeric = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+    let separators = ['+', '-', '*', '/', '(', ')'];
+    let mut token = String::new();
+
+    if start >= s.len() {
+        return None;
+    }
+
+    let slice = &s[start..];
+    for c in slice.chars().into_iter() {
+        if numeric.contains(&c) {
+            token.push(c);
+            continue;
+        }
+
+        if separators.contains(&c) {
+            if token.len() == 0 {
+                token.push(c);
+            }
+
+            break;
+        }
+    }
+
+    if token.len() > 0 {
+        Some(token)
+    } else {
+        None
+    }
 }

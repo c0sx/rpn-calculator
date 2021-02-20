@@ -15,5 +15,5 @@ fn get_input() -> String {
         .read_line(&mut input)
         .expect("При обработки ввода возникла ошибка");
 
-    input
+    String::from(input.trim())
 }

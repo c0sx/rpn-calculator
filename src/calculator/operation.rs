@@ -1,19 +1,46 @@
-pub fn add(a: f64, b: f64) -> f64 {
+pub fn add(stack: &mut Vec<f64>) -> f64 {
+    let a = get_argument(stack);
+    let b = get_argument(stack);
+
     a + b
 }
 
-pub fn subtract(a: f64, b: f64) -> f64 {
-    a - b
+pub fn subtract(stack: &mut Vec<f64>) -> f64 {
+    let a = get_argument(stack);
+    let b = get_argument(stack);
+
+    b - a
 }
 
-pub fn multiply(a: f64, b: f64) -> f64 {
+pub fn reverse(stack: &mut Vec<f64>) -> f64 {
+    let a = get_argument(stack);
+
+    -a
+}
+
+pub fn multiply(stack: &mut Vec<f64>) -> f64 {
+    let a = get_argument(stack);
+    let b = get_argument(stack);
+
     a * b
 }
 
-pub fn divide(a: f64, b: f64) -> f64 {
-    if b == 0.0 {
+pub fn divide(stack: &mut Vec<f64>) -> f64 {
+    let a = get_argument(stack);
+    let b = get_argument(stack);
+
+    if a == 0.0 {
         panic!("Деление на ноль")
     }
 
-    a / b
+    b / a
+}
+
+fn get_argument(stack: &mut Vec<f64>) -> f64 {
+    let arg = stack.pop();
+
+    match arg {
+        Some(a) => a,
+        None => panic!("Ошибка при выполнении")
+    }
 }
